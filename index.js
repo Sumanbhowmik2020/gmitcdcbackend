@@ -32,6 +32,7 @@ const academicinfoAPI = require('./controllers/academicAPI_promise');
 const skillinfoAPI = require('./controllers/skillAPI_promise');
 const placementinfoAPI = require('./controllers/placementAPI_promise');
 const hrApI= require('./controllers/hrAPI_promise');
+const adminAPI= require('./controllers/adminAPI_promise');
 
 //USE URL /emp - route to studentController 
 app.use('/student', studentAPI);
@@ -41,6 +42,7 @@ app.use('/academicinfo', academicinfoAPI);
 app.use('/skillinfo', skillinfoAPI);
 app.use('/placementinfo', placementinfoAPI);
 app.use('/hr',hrApI);
+app.use('/admin',adminAPI);
 
 // START THE EXPRESS SERVER. 4500 is the PORT NUMBER
 //app.listen(4500, () => console.log('EXPRESS Server Started at Port No: 4500'));
