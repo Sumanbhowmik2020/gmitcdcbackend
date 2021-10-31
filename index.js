@@ -3,6 +3,7 @@
 //JavaScript file, executes the file, and then proceeds 
 //to return the export object.
 // IMPORT EXPRESS SERVER
+var PORT = process.env.PORT || 4500;
 const express = require('express');
 //The express() syntax is the equivalent of saying new express(). 
 //It creates a new instance of express that you can assign to a variable.
@@ -42,4 +43,6 @@ app.use('/placementinfo', placementinfoAPI);
 app.use('/hr',hrApI);
 
 // START THE EXPRESS SERVER. 4500 is the PORT NUMBER
-app.listen(4500, () => console.log('EXPRESS Server Started at Port No: 4500'));
+//app.listen(4500, () => console.log('EXPRESS Server Started at Port No: 4500'));
+app.listen(PORT, () => console.log('EXPRESS Server Started at Port No: '+`${PORT}`));
+
