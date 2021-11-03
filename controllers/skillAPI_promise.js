@@ -62,7 +62,7 @@ router.get('/', (req, res) => {
 );//CLOSE GET METHOD Line 109 
 
 router.get('/search/:emailid', (req, res) => {
-  SkillinfoModel.find({ "studentemail": req.params.emailid })
+  SkillinfoModel.find({ "studentemail": req.params.emailid ,"status":1})
     .then(getsearchdocument => {
       if (getsearchdocument.length > 0) {
         res.send(getsearchdocument);
@@ -79,7 +79,7 @@ router.get('/search/:emailid', (req, res) => {
 
 router.get('/skillsearch/:skill', (req, res) => {
   var myregex = new RegExp(req.params.skill, "i");
-  SkillinfoModel.find({ "studentskillname": myregex })
+  SkillinfoModel.find({ "studentskillname": myregex ,"status":1})
     .then(getsearchskilldocument => {
       if (getsearchskilldocument.length > 0) {
         res.send(getsearchskilldocument);
