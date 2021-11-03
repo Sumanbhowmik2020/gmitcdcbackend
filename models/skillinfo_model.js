@@ -13,6 +13,7 @@ let SkillinfoModel = model_mongoose.model('Skillinfos',
     studentprojecturl: { type: String },
 
     studentprojectnote: { type: String },
+    status: { type: String },
  
 
     

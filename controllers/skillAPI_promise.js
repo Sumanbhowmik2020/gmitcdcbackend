@@ -34,7 +34,7 @@ router.post('/update', (req, res) => {
     studentprojecturl: req.body.studentprojecturl,
 
     studentprojectnote: req.body.studentprojectnote,
-
+    status: 0
 
 
   });//CLOSE EmpModel
@@ -49,9 +49,9 @@ router.post('/update', (req, res) => {
 }//CLOSE CALLBACK FUNCTION BODY Line 27
 );//CLOSE POST METHOD Line 26
 
-
 router.get('/', (req, res) => {
   SkillinfoModel.find()
+    .sort({ "createdAt": -1 })
     .then(getalldocumentsfrommongodb => {
       res.status(200).send(getalldocumentsfrommongodb);
     }) //CLOSE THEN
@@ -59,7 +59,7 @@ router.get('/', (req, res) => {
       res.status(500).send({ message: err.message || 'Error in Fetch Employee ' })
     });//CLOSE CATCH
 } //CLOSE CALLBACK FUNCTION BODY Line 110      
-);//CLOSE GET METHOD Line 109  
+);//CLOSE GET METHOD Line 109 
 
 router.get('/search/:emailid', (req, res) => {
   SkillinfoModel.find({ "studentemail": req.params.emailid })
@@ -95,6 +95,53 @@ router.get('/skillsearch/:skill', (req, res) => {
 );//CLOSE GET METHOD Line 87 
 
 
+router.delete('/remove/:email', (req, res) => {
+  SkillinfoModel.findOneAndRemove({ "studentname": req.params.email })
+    .then(deleteddocument => {
+      if (deleteddocument != null) {
+        res.status(200).send('DOCUMENT DELETED successfully!' + deleteddocument);
+      }
+      else {
+        res.status(404).send('INVALID STUDENT ID ' + req.params.email);
+      }
+    }) //CLOSE THEN
+    .catch(err => {
+      return res.status(500).send({ message: "DB Problem..Error in Delete with id " + req.params.email });
+    })//CLOSE CATCH
+}//CLOSE CALLBACK FUNCTION BODY Line 60
+); //CLOSE Delete METHOD Line 59
+
+
+router.put('/approve/:email', (req, res) => {
+  console.log(req.params.email);
+  SkillinfoModel.updateOne({"studentemail":req.params.email}, {
+    $set: {
+      "status": "1"
+    }
+  }, { new: true })
+    .sort({ "createdAt": -1 })
+    .then(active => {
+      res.status(200).send(active);
+    })
+    .catch(err => {
+      res.status(500).send({ message: err.message || 'Error in Fetch News ' })
+    })
+})
+router.put('/reject/:email', (req, res) => {
+  // console.log(req.params.uid);
+  SkillinfoModel.updateOne({"studentemail":req.params.email}, {
+    $set: {
+      "status": "-1"
+    }
+  }, { new: true })
+    .sort({ "createdAt": -1 })
+    .then(reject => {
+      res.status(200).send(reject);
+    })
+    .catch(err => {
+      res.status(500).send({ message: err.message || 'Error in Fetch News ' })
+    })
+})
 
 
 
