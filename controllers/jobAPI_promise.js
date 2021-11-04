@@ -90,7 +90,7 @@ router.get('/search/:studentcompany', (req, res) => {
 
 
 router.delete('/remove/:email', (req, res) => {
-  SkillinfoModel.findOneAndRemove({ "studentemail": req.params.email })
+  JobinfoModel.findOneAndRemove({ "studentemail": req.params.email })
     .then(deleteddocument => {
       if (deleteddocument != null) {
         res.status(200).send('DOCUMENT DELETED successfully!' + deleteddocument);
@@ -108,7 +108,7 @@ router.delete('/remove/:email', (req, res) => {
 
 router.put('/approve/:email', (req, res) => {
   console.log(req.params.email);
-  SkillinfoModel.updateOne({ "studentemail": req.params.email }, {
+  JobinfoModel.updateOne({ "studentemail": req.params.email }, {
     $set: {
       "status": "1"
     }
@@ -123,7 +123,7 @@ router.put('/approve/:email', (req, res) => {
 })
 router.put('/reject/:email', (req, res) => {
   // console.log(req.params.uid);
-  SkillinfoModel.updateOne({ "studentemail": req.params.email }, {
+  JobinfoModel.updateOne({ "studentemail": req.params.email }, {
     $set: {
       "status": "-1"
     }
