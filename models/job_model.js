@@ -8,7 +8,7 @@ let JobinfoModel = model_mongoose.model('internships',
         studentcompany: { type: String },
         studentsession: { type: String },
         studentskillname: { type: String },
-        studedentdept: { type: String },
+        studentdept: { type: String },
         studentdate: { type: String },
         
         studentprofilepic: { type: String },

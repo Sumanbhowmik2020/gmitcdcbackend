@@ -29,7 +29,7 @@ router.post('/update', (req, res) => {
     studentcompany: req.body.studentcompany,
     studentsession:req.body.studentsession,
     studentskillname:req.body.studentskillname,
-    studedentdept: req.body.studedentdept,
+    studentdept: req.body.studentdept,
     studentdate: req.body.studentdate,
     
     studentprofilepic: req.body.studentprofilepic,
