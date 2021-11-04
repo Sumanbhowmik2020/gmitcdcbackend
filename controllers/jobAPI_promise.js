@@ -71,7 +71,21 @@ router.get('/', (req, res) => {
 } //CLOSE CALLBACK FUNCTION BODY Line 110      
 );//CLOSE GET METHOD Line 109 
 
-
+router.get('/search/:studentcompany', (req, res) => {
+  JobinfoModel.find({ "studentcompany": req.params.studentcompany })
+    .then(getsearchdocument => {
+      if (getsearchdocument.length > 0) {
+        res.send(getsearchdocument);
+      }
+      else {
+        return res.status(404).send({ message: "Note not found with id " + req.params.studentcompany });
+      }
+    }) //CLOSE THEN
+    .catch(err => {
+      return res.status(500).send({ message: "DB Problem..Error in Retriving with id " + req.params.studentcompany });
+    })//CLOSE CATCH
+}//CLOSE CALLBACK FUNCTION BODY Line 88
+);//CLOSE GET METHOD Line 87 
 
 
 
