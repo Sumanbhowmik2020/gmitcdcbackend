@@ -19,37 +19,48 @@ const JobinfoModel = require('../models/job_model');
 */
 
 
-router.post('/update', (req, res) => {
-//console.log( req.body.studentprojecturl)
+router.post('/register', (req, res) => {
+
   //Create Object of Employee Model Class
   // And Receive value from request body and Store value within the Object
-  const jobinfoobj = new JobinfoModel({
-    studentname: req.body.studentname,
-    studentemail: req.body.studentemail,
-    studentcompany: req.body.studentcompany,
-    studentsession:req.body.studentsession,
-    studentskillname:req.body.studentskillname,
-    studentdept: req.body.studentdept,
-    studentdate: req.body.studentdate,
-    
-    studentprofilepic: req.body.studentprofilepic,
-    status: 0
+  JobinfoModel.find({ "studentemail": req.body.studentemail, "studentskillname": req.body.studentskillname })
+    .then(response => {
+      if (response.length > 0) {
+        return res.send({ message: "Already Student select with this Skil" })
+      }
+      else {
+
+        const jobinfoobj = new JobinfoModel({
+          studentname: req.body.studentname,
+          studentemail: req.body.studentemail,
+          studentcompany: req.body.studentcompany,
+          studentsession: req.body.studentsession,
+          studentskillname: req.body.studentskillname,
+          studentdept: req.body.studentdept,
+          studentdate: req.body.studentdate,
+
+          studentprofilepic: req.body.studentprofilepic,
+          status: 0
 
 
-  });//CLOSE EmpModel
-  //INSERT/SAVE THE RECORD/DOCUMENT
-  jobinfoobj.save()
-    .then(inserteddocument => {
-      res.status(200).send('DOCUMENT INSERED IN MONGODB DATABASE' + '<br\>' + inserteddocument);
-    })//CLOSE THEN
-    .catch(err => {
-      res.status(500).send({ message: err.message || 'Error in Employee Save ' })
-    });//CLOSE CATCH
+        });//CLOSE EmpModel
+        //INSERT/SAVE THE RECORD/DOCUMENT
+        jobinfoobj.save()
+          .then(inserteddocument => {
+            res.status(200).send({ message: "Internship info Upload Succesfully" });
+          })//CLOSE THEN
+
+          .catch(err => {
+            res.status(500).send({ message: err.message || 'Error in Employee Save ' })
+          });//CLOSE CATCH
+      }
+    })
 }//CLOSE CALLBACK FUNCTION BODY Line 27
 );//CLOSE POST METHOD Line 26
+//CLOSE POST METHOD Line 26
 
 router.get('/', (req, res) => {
-    JobinfoModel.find()
+  JobinfoModel.find()
     .sort({ "createdAt": -1 })
     .then(getalldocumentsfrommongodb => {
       res.status(200).send(getalldocumentsfrommongodb);
@@ -83,7 +94,7 @@ router.delete('/remove/:email', (req, res) => {
 
 router.put('/approve/:email', (req, res) => {
   console.log(req.params.email);
-  SkillinfoModel.updateOne({"studentemail":req.params.email}, {
+  SkillinfoModel.updateOne({ "studentemail": req.params.email }, {
     $set: {
       "status": "1"
     }
@@ -98,7 +109,7 @@ router.put('/approve/:email', (req, res) => {
 })
 router.put('/reject/:email', (req, res) => {
   // console.log(req.params.uid);
-  SkillinfoModel.updateOne({"studentemail":req.params.email}, {
+  SkillinfoModel.updateOne({ "studentemail": req.params.email }, {
     $set: {
       "status": "-1"
     }
