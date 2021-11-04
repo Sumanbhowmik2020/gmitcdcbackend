@@ -89,7 +89,7 @@ router.get('/home', (req, res) => {
 
 
 router.delete('/remove/:email', (req, res) => {
-  PlacementinfoModel.findOneAndRemove({ "studentname": req.params.email })
+  PlacementinfoModel.findOneAndRemove({ "studentemail": req.params.email })
     .then(deleteddocument => {
       if (deleteddocument != null) {
         res.status(200).send('DOCUMENT DELETED successfully!' + deleteddocument);
