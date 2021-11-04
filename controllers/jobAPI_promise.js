@@ -23,7 +23,7 @@ router.post('/register', (req, res) => {
 
   //Create Object of Employee Model Class
   // And Receive value from request body and Store value within the Object
-  JobinfoModel.find({ "studentemail": req.body.studentemail, "studentskillname": req.body.studentskillname })
+  JobinfoModel.find({ "studentemail": req.body.studentemail, "studentskillname": req.body.studentskillname ,"studentcompany":req.body.studentcompany})
     .then(response => {
       if (response.length > 0) {
         return res.send({ message: "Already Student select with this Skil" })
