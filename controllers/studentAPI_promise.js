@@ -44,7 +44,7 @@ router.post('/register', (req, res) => {
           studentregnumber:req.body.studentregnumber,
           studentsession: req.body.studentsession,
           studentpass: req.body.studentpassword,
-
+          status: 0
 
         });//CLOSE EmpModel
         //INSERT/SAVE THE RECORD/DOCUMENT
@@ -125,7 +125,7 @@ router.get('/', (req, res) => {
 router.post('/logincheck', (req, res) => {
   console.log(req.body.studentemail)
   console.log(req.body.studentpassword)
-  StudentModel.find({ "studentemail": req.body.studentemail, "studentpass": req.body.studentpassword })
+  StudentModel.find({ "studentemail": req.body.studentemail, "studentpass": req.body.studentpassword ,"status":1})
     .then(getsearchdocument => {
       if (getsearchdocument.length > 0) {
         res.send(getsearchdocument);
@@ -161,6 +161,38 @@ router.put('/update', (req, res) => {
     }) // CLOSE CATCH
 } //CLOSE CALLBACK FUNCTION Line No 108
 ); //CLOSE PUT METHOD Line No 107
+
+
+router.put('/approve/:studentid', (req, res) => {
+  //console.log(req.params.email);
+  JobinfoModel.updateOne({ "_id": req.params.studentid }, {
+    $set: {
+      "status": "1"
+    }
+  }, { new: true })
+    .sort({ "createdAt": -1 })
+    .then(active => {
+      res.status(200).send(active);
+    })
+    .catch(err => {
+      res.status(500).send({ message: err.message || 'Error in Fetch News ' })
+    })
+})
+router.put('/reject/:studentid', (req, res) => {
+  // console.log(req.params.uid);
+  JobinfoModel.updateOne({ "_id": req.params.studentid }, {
+    $set: {
+      "status": "-1"
+    }
+  }, { new: true })
+    .sort({ "createdAt": -1 })
+    .then(reject => {
+      res.status(200).send(reject);
+    })
+    .catch(err => {
+      res.status(500).send({ message: err.message || 'Error in Fetch News ' })
+    })
+})
 
 
 

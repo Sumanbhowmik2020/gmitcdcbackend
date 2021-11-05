@@ -12,6 +12,7 @@ let StudentModel = model_mongoose.model('students',
     studentregnumber: { type: String },
     studentsession: { type: String },
     studentpassword: { type: String },
+    status: { type: String },
 	regdatetime: { type: Date, default: Date.now }
 });
 
