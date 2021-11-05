@@ -89,18 +89,18 @@ router.get('/search/:studentcompany', (req, res) => {
 
 
 
-router.delete('/remove/:email', (req, res) => {
-  JobinfoModel.findOneAndRemove({ "studentemail": req.params.email })
+router.delete('/remove/:studentid', (req, res) => {
+  JobinfoModel.findOneAndRemove({ "_id": req.params.studentid })
     .then(deleteddocument => {
       if (deleteddocument != null) {
         res.status(200).send('DOCUMENT DELETED successfully!' + deleteddocument);
       }
       else {
-        res.status(404).send('INVALID STUDENT ID ' + req.params.email);
+        res.status(404).send('INVALID STUDENT ID ' + req.params.studentid);
       }
     }) //CLOSE THEN
     .catch(err => {
-      return res.status(500).send({ message: "DB Problem..Error in Delete with id " + req.params.email });
+      return res.status(500).send({ message: "DB Problem..Error in Delete with id " + req.params.studentid });
     })//CLOSE CATCH
 }//CLOSE CALLBACK FUNCTION BODY Line 60
 ); //CLOSE Delete METHOD Line 59
