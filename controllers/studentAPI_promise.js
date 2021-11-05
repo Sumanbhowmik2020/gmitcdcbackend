@@ -165,7 +165,7 @@ router.put('/update', (req, res) => {
 
 router.put('/approve/:studentid', (req, res) => {
   //console.log(req.params.email);
-  JobinfoModel.updateOne({ "_id": req.params.studentid }, {
+  StudentModel.updateOne({ "_id": req.params.studentid }, {
     $set: {
       "status": "1"
     }
@@ -180,7 +180,7 @@ router.put('/approve/:studentid', (req, res) => {
 })
 router.put('/reject/:studentid', (req, res) => {
   // console.log(req.params.uid);
-  JobinfoModel.updateOne({ "_id": req.params.studentid }, {
+  StudentModel.updateOne({ "_id": req.params.studentid }, {
     $set: {
       "status": "-1"
     }
