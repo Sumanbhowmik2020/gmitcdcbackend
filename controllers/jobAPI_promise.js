@@ -71,6 +71,18 @@ router.get('/', (req, res) => {
 } //CLOSE CALLBACK FUNCTION BODY Line 110      
 );//CLOSE GET METHOD Line 109 
 
+router.get('/home', (req, res) => {
+  JobinfoModel.find({"status":"1"})
+    .sort({ "createdAt": -1 })
+    .then(getalldocumentsfrommongodb => {
+      res.status(200).send(getalldocumentsfrommongodb);
+    })
+    .catch(err => {
+      res.status(500).send({ message: err.message || 'Error in Fetch Employee ' })
+    });
+}
+);
+
 router.get('/search/:studentcompany', (req, res) => {
   JobinfoModel.find({ "studentcompany": req.params.studentcompany })
     .then(getsearchdocument => {
