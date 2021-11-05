@@ -106,9 +106,9 @@ router.delete('/remove/:studentid', (req, res) => {
 ); //CLOSE Delete METHOD Line 59
 
 
-router.put('/approve/:email', (req, res) => {
-  console.log(req.params.email);
-  JobinfoModel.updateOne({ "studentemail": req.params.email }, {
+router.put('/approve/:studentid', (req, res) => {
+  //console.log(req.params.email);
+  JobinfoModel.updateOne({ "_id": req.params.studentid }, {
     $set: {
       "status": "1"
     }
@@ -121,9 +121,9 @@ router.put('/approve/:email', (req, res) => {
       res.status(500).send({ message: err.message || 'Error in Fetch News ' })
     })
 })
-router.put('/reject/:email', (req, res) => {
+router.put('/reject/:studentid', (req, res) => {
   // console.log(req.params.uid);
-  JobinfoModel.updateOne({ "studentemail": req.params.email }, {
+  JobinfoModel.updateOne({ "_id": req.params.studentid }, {
     $set: {
       "status": "-1"
     }
