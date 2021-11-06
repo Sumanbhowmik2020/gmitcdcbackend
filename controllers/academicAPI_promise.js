@@ -22,7 +22,7 @@ router.post('/register', (req, res) => {
 
   //Create Object of Employee Model Class
   // And Receive value from request body and Store value within the Object
-  AcademicinfoModel.find({ $or: [{ "studentemail": req.body.studentemail }, { "studentmobile": req.body.studentmobile }] })
+  AcademicinfoModel.find({  "studentemail": req.body.studentemail   })
     .then(response => {
       if (response.length > 0) {
         return res.send({ message: "You already upload your Academic Info" })
